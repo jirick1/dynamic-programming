@@ -4,55 +4,34 @@
  */
 var firstMissingPositive = function(nums) {
   
+  var idx = 0;
+  var lowest = 1;
+  var set = new Set(nums)
+  
+  while (idx != nums.length) {
 
-  let set = new Set(nums);
-  var lowestValue = null, higestValue = null;
-
-  for (let i = 0; i < nums.length; i++) {
-    const currentValue = nums[i];
+    const currentValue = nums[idx];
     const upper = currentValue + 1; // 2
     const lower = currentValue - 1; // 1
-    console.log(" C: " + currentValue + ", L: " + lower + ", U: " + upper)
-    
-    if (set.has(upper) == false) {
-      if (higestValue == null || higestValue < upper) higestValue = upper;
+
+    if (set.has(lowest)) {
+      lowest+=1;
     }
 
-    if (set.has(lower) == false) {
-    
-      // check if lowestValue is null
-      if (lowestValue == null) {
-
-        // check if lower is greater than 0
-        if (lower > 0) { // lowestValue = null; lower > 0
-          lowestValue = lower;
-        } else {
-          if (lower == 0) {
-            lowestValue = higestValue;
-          }
-        }
-      } else { // lowest value is not null
-
-        if (lower > 0 && lower < lowestValue) {
-          lowestValue = lower
-        }
-
-        if (higestValue != null && higestValue < lowestValue) {
-          lowestValue = higestValue;
-        }
-
-      }
-    } else {
-      if (lowestValue == null) lowestValue = higestValue
+    if (currentValue == lowest ) {
+      lowest+=1;
     }
+   
+   idx++;
   }
-  
-  if (set.has(1) == false) lowestValue = 1 // next positive int is 1
 
-  return lowestValue;
+  return lowest;
 };
 
-console.log(firstMissingPositive([3, 4, -1, 1]))      // expect 2
-console.log(firstMissingPositive([1, 2, 0]))          // expect 3
-console.log(firstMissingPositive([7, 8, 9, 11, 12]))  // expect 1
-console.log(firstMissingPositive([1, 1000]))          // expect 2
+// console.log(firstMissingPositive([3, 4, -1, 1]))      // expect 2
+// console.log(firstMissingPositive([1, 2, 0]))          // expect 3
+// console.log(firstMissingPositive([7, 8, 9, 11, 12]))  // expect 1
+// console.log(firstMissingPositive([1, 1000]))          // expect 2
+// console.log(firstMissingPositive([999,500,1]))        // expect 2
+// console.log(firstMissingPositive([2,1]))              // expect 3
+console.log(firstMissingPositive([1, -1, 3, 2,1]))              // expect 3
