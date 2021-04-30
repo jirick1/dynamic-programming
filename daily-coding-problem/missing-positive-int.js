@@ -12,13 +12,13 @@ var firstMissingPositive = function(nums) {
     const currentValue = nums[i];
     const upper = currentValue + 1; // 2
     const lower = currentValue - 1; // 1
-    // console.log(" C: " + currentValue + ", L: " + lower + ", U: " + upper)
+    console.log(" C: " + currentValue + ", L: " + lower + ", U: " + upper)
     
     if (set.has(upper) == false) {
       if (higestValue == null || higestValue < upper) higestValue = upper;
     }
 
-    if (set.has(lower) == false) { // lowest not in set
+    if (set.has(lower) == false) {
     
       // check if lowestValue is null
       if (lowestValue == null) {
@@ -51,3 +51,8 @@ var firstMissingPositive = function(nums) {
 
   return lowestValue;
 };
+
+console.log(firstMissingPositive([3, 4, -1, 1]))      // expect 2
+console.log(firstMissingPositive([1, 2, 0]))          // expect 3
+console.log(firstMissingPositive([7, 8, 9, 11, 12]))  // expect 1
+console.log(firstMissingPositive([1, 1000]))          // expect 2
