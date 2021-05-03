@@ -9,10 +9,7 @@ var firstMissingPositive = function(nums) {
   var set = new Set(nums)
   
   while (idx != nums.length) {
-
     const currentValue = nums[idx];
-    const upper = currentValue + 1; // 2
-    const lower = currentValue - 1; // 1
 
     if (set.has(lowest)) {
       lowest+=1;
@@ -34,4 +31,4 @@ console.log(firstMissingPositive([7, 8, 9, 11, 12]))  // expect 1
 console.log(firstMissingPositive([1, 1000]))          // expect 2
 console.log(firstMissingPositive([999,500,1]))        // expect 2
 console.log(firstMissingPositive([2,1]))              // expect 3
-console.log(firstMissingPositive([1, -1, 3, 2,1]))              // expect 3
+console.log(firstMissingPositive([1, -1, 3, 2,1]))    // expect 3
