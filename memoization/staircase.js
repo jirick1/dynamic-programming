@@ -22,10 +22,10 @@ const climbStairs = (target, memo={}) => {
   if (target == 0) return 1;
   if (target < 0) return 0;
 
-  memo[target] = climbStairs(target-2) + climbStairs(target-1)
+  memo[target] = climbStairs(target-2, memo) + climbStairs(target-1, memo)
   return memo[target];
 }
 
-console.log(climbStairs(4)) // 5 non unique
-console.log(climbStairs(3)) // 3 non unique
-console.log(climbStairs(50)) // 3 non unique
+console.log(climbStairs(4)) // 5 unique ways
+console.log(climbStairs(3)) // 3 unique ways
+console.log(climbStairs(100)) // 573147844013817200000 unique ways
