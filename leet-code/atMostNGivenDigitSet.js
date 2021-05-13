@@ -1,158 +1,57 @@
-function generate(current, len, chars, results=[]) {
+function generate(current, len, chars, results, n) {
 
-  if (current.length == len) {
-    results.push(current);
+  if (current.length == len && current <= n) {
+    results.total++;
   }
     
   if (current.length < len) {
-    for (var i in chars) {
-      generate(current + chars[i], len, chars, results)
+    for (let i in chars) {
+      generate(current + chars[i], len, chars, results, n)
     }
   }
   return results;
 }
 
-function possibleValues(chars, min, max) {
-  let results = [];
-
-  // TODO dont generate values greater than
-  let maxLength = max.toString().length // 8
+function possibleValues(chars, min, n) {
+  let results = {total: 0};
+  let maxLength = n.toString().length
   for (var l = min; l <= maxLength; ++l) {
-    generate("", l, chars, results)
+    generate("", l, chars, results, n)
   }
   return results;
 }
 
 var atMostNGivenDigitSet = function (digits, n) {
-  const possibleVals = possibleValues(digits, 1, n)
-  var total = 0;
-
-  for (let i = 0; i < possibleVals.length; i++) {
-
-    const value = possibleVals[i];
-    if (value <= n) {
-      total+=1;
-    }
-  }
-
-  return total;
+  const results = possibleValues(digits, 1, n)
+  return results.total;
 }
 
-console.log(atMostNGivenDigitSet(["1", "3", "5", "7"], 100));   // 20 
-console.log(atMostNGivenDigitSet(["1", "4", "9"], 1000000000)); // 29523
-console.log(atMostNGivenDigitSet(["7"], 8))                     // 1
+var startTime = (new Date()).getTime();
+console.log(atMostNGivenDigitSet(["1", "3", "5", "7"], 100));                             // 20 
+var endTime = (new Date()).getTime();
+console.log(`end-time: ${(endTime - startTime) / 1000}`)
+
+var startTime = (new Date()).getTime();
+console.log(atMostNGivenDigitSet(["1", "4", "9"], 1000000000));                           // 29523
+var endTime = (new Date()).getTime();
+console.log(`end-time: ${(endTime - startTime) / 1000}`)
+
+var startTime = (new Date()).getTime();
+console.log(atMostNGivenDigitSet(["7"], 8))                                               // 1
+var endTime = (new Date()).getTime();
+console.log(`end-time: ${(endTime - startTime) / 1000}`)
 
 var startTime = (new Date()).getTime();
 console.log(atMostNGivenDigitSet(["1", "2", "3", "4", "5", "6", "7", "8", "9"], 1597232)) // 891029
- var endTime = (new Date()).getTime();
+var endTime = (new Date()).getTime();
 console.log(`end-time: ${(endTime - startTime) / 1000}`)
-// var startTime = (new Date()).getTime();
-// var endTime = (new Date()).getTime();
-// console.log(`end-time: ${(endTime - startTime) / 1000}`)
-  
 
-/*
+var startTime = (new Date()).getTime();
+console.log(atMostNGivenDigitSet(["1", "2", "3", "4", "6", "7", "8", "9"], 67688637))     // 12255070
+var endTime = (new Date()).getTime();
+console.log(`end-time: ${(endTime - startTime) / 1000}`)
 
-  // var excludedNumbers = [];
-  // for (let i = 0; i < 10; i++) {
-  //   if (!digitSet.has(i.toString())) {
-  //     excludedNumbers.push(i.toString())
-  //   }
-  // }
-
-  // const excludeDigits = new Set(excludedNumbers);
-
-  var results = [];
-
-  for (let i = 0; i < n; i++) {
-
-    var setK = new Set(i.toString().split("")) // O(n*4)
-
-    //if (excludeDigits.length > digitSet.length) {
-    if (isSuperseExclude(excludeDigits, setK)) {
-      continue;
-    }
-    results.push(i);
-    //}
-    // else {
-    //   if (isSuperset(digitSet, setK)) {
-    //     results.push(i);
-    //   }
-    // }
-  }
-
-  var endTime = (new Date()).getTime();
-  console.log(`end-time: ${(endTime - startTime) / 1000}`)
-  return results.length;
-};
-
-
-
-// console.log(brute(["1", "4", "9"], 1, 100));
-// console.log(brute(["1", "4", "9"], 1, 1000000000));
-
-
- var atMostNGivenDigitSet = function (digits, n) {
-  const digitSet = new Set(digits.map((v) => parseInt(v))) // 2n
-  var results = [];
-  var memo = {};
-
-  for(let i = 0; i < n; i++) {
-
-    console.log(i);
-
-    var setK = new Set(i.toString().split("").map((v) => parseInt(v)))
-
-    console.log(setK);
-
-    var key = ""
-    setK.forEach((val) => {
-      key +=val.toString();
-    })
-
-    if (memo[key] || isSuperset(digitSet, setK)) {
-      memo[key] = true;
-      results.push(i)
-    }
-  }
-
-  console.log(results);
-  return results.length;
-};
-
-
-
-var atMostNGivenDigitSet = function (digits, n) {
-  const digitSet = new Set(digits) // O(n*1)
-  var startTime = (new Date()).getTime();
-
-  var excludedNumbers = [];
-  for(let i=0; i<10; i++) {
-    if (!digitSet.has(i.toString())) {
-      excludedNumbers.push(i.toString())
-    }
-  }
-  const excludeDigits = new Set(excludedNumbers);
-
-  var results = [];
-  var memo = {}
-
-  for(let i = 0; i < n; i++) {
-
-    var setK = new Set(i.toString().split("")) // O(n*4)
-
-    if (isSuperset(digitSet, setK)) {
-      // memo[key] = true;
-      // continue;
-
-      if (i < n) {
-        results.push(i)
-      }
-    }
-  }
-
-  var endTime = (new Date()).getTime();
-  console.log(`end-time: ${(endTime - startTime)/1000}`)
-  return results.length;
-};
-*/
+var startTime = (new Date()).getTime();
+console.log(atMostNGivenDigitSet(["3", "4", "5", "7", "8", "9"], 819407090))              // 8734002
+var endTime = (new Date()).getTime();
+console.log(`end-time: ${(endTime - startTime) / 1000}`)
