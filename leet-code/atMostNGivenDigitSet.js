@@ -1,11 +1,12 @@
 function generate(current, len, chars, results, n) {
 
-  if (current.length == len && current <= n) {
+  if (current.length == len) {
     results.total++;
   }
     
   if (current.length < len) {
-    for (let i in chars) {
+    for (let i = 0; i < chars.length; i++) {
+      if (current + chars[i] > n) break;
       generate(current + chars[i], len, chars, results, n)
     }
   }
@@ -53,5 +54,17 @@ console.log(`end-time: ${(endTime - startTime) / 1000}`)
 
 var startTime = (new Date()).getTime();
 console.log(atMostNGivenDigitSet(["3", "4", "5", "7", "8", "9"], 819407090))              // 8734002
+var endTime = (new Date()).getTime();
+console.log(`end-time: ${(endTime - startTime) / 1000}`)
+
+
+var startTime = (new Date()).getTime();
+console.log(atMostNGivenDigitSet(["1", "3", "4", "5", "6", "8", "9"], 270214721))         // 12490401
+var endTime = (new Date()).getTime();
+console.log(`end-time: ${(endTime - startTime) / 1000}`)
+
+
+var startTime = (new Date()).getTime();
+console.log(atMostNGivenDigitSet(["1", "2", "3", "4", "5", "6", "7", "8"], 940860624))     // 153391688 (11.61)
 var endTime = (new Date()).getTime();
 console.log(`end-time: ${(endTime - startTime) / 1000}`)
