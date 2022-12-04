@@ -11,6 +11,8 @@ const canSum = (targetSum, numbers) => {
   for(let num of numbers) {
     let remainder = targetSum - num;
 
+    set.delete(num);
+
     if (set.has(remainder)){
       return true;
     }
